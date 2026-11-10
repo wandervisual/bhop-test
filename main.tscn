@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://disqkjlfc6e21"]
+
+[ext_resource type="Script" uid="uid://bvsf7b0jo4k3s" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://urta5xxjeikf" path="res://texture_01.png" id="2_0xm2m"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
+sky_top_color = Color(0.30696368, 0.46450204, 0.6114731, 1)
+sky_horizon_color = Color(0.6388664, 0.670501, 0.69824374, 1)
+ground_horizon_color = Color(0.6388664, 0.670501, 0.69824374, 1)
+
+[sub_resource type="Sky" id="Sky_0xm2m"]
+sky_material = SubResource("ProceduralSkyMaterial_ig7tw")
+
+[sub_resource type="Environment" id="Environment_h2yge"]
+background_mode = 2
+sky = SubResource("Sky_0xm2m")
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
+albedo_texture = ExtResource("2_0xm2m")
+uv1_scale = Vector3(20, 20, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_imo76"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m6xpx"]
+size = Vector3(2180, 0.51, 2390)
+
+[node name="Main" type="Node3D" unique_id=1381690000]
+script = ExtResource("1_ig7tw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=693668109]
+transform = Transform3D(-0.2773147, -0.834563, 0.4760264, 0, 0.49545872, 0.8686315, -0.96077913, 0.24088427, -0.13739799, 0, 0, 0)
+light_energy = 1.3
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2141131815]
+environment = SubResource("Environment_h2yge")
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1107778169]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1458888508]
+transform = Transform3D(2182.2305, 0, 0, 0, 0.513, 0, 0, 0, 2393.711, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_h2yge")
+mesh = SubResource("BoxMesh_imo76")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=2065891397]
+shape = SubResource("BoxShape3D_m6xpx")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1574904729]
+_spawnable_scenes = PackedStringArray("uid://bpidx1j84risk")
+spawn_path = NodePath("..")
